@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+		   		 xmlns:beans="http://www.springframework.org/schema/beans"
+		   		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	       		 xmlns:util="http://www.springframework.org/schema/util"
+	       		 xmlns:context="http://www.springframework.org/schema/context"
+	       		 xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+						
+					 <beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<beans:property name="targetClass" value="org.springframework.security.core.context.SecurityContextHolder"/>
+		<beans:property name="targetMethod" value="setStrategyName"/>
+		<beans:property name="arguments">
+			<beans:list>
+				<beans:value>MODE_INHERITABLETHREADLOCAL</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>  
+	
+	<beans:bean id="forbiddenAuthEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+			 
+    <!-- Security Messages -->
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" >
+		<beans:property name="basename" value="org/springframework/security/messages"/>
+	</beans:bean>
+	
+	<!-- Transaction Manager Info -->
+	
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		 <beans:property name="dataSource" ref="dataSource" /> 
+	</beans:bean>
+	
+	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+		<beans:property name="jndiName" value="/jdbc/threatDataSource" />
+		<beans:property name="resourceRef" value="true" />
+	</beans:bean>
+	
+	<!-- <beans:bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	 <beans:property name="location" value="classpath:application.properties"/>
+    </beans:bean> -->
+	
+	<context:property-placeholder location="classpath:application.properties" /> 
+	
+
+	<!-- Security bean definition -->
+	<!-- <beans:bean name="MessengerDAO" class="com.acnc.mm.dao.db.jdbc.MessengerDAOImpl" >
+		<beans:property name="threatDS" ref="dataSource" />
+		<beans:property name="transactionManager" ref="transactionManager" />
+	</beans:bean>
+	
+	 
+	 <beans:bean class="com.acnc.mm.services.messenger.MessengerServiceImpl" name="messengerService" >
+		<beans:property name="messengerDAO" ref="MessengerDAO" />		
+	</beans:bean>
+	
+	<context:component-scan base-package="com.acnc.mm.services.mail" />    
+     -->
+   
+    
+	
+		
+
+						
+						
+</beans:beans>						

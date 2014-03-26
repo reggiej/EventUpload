@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+    <application>
+		  
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		<message-bundle>JSF-override</message-bundle>
+		
+	</application>
+<managed-bean>
+		<description>
+			Backing bean for Uploader
+        </description>
+		<managed-bean-name>up</managed-bean-name>
+		<managed-bean-class>com.wb.mm.web.FileUploadController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>nav_massMJob</from-outcome>
+			<to-view-id>/jsp/createJob.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>nav_massMCandidate</from-outcome>
+			<to-view-id>/jsp/createCandidate.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<lifecycle>
+    <phase-listener id="nocache">com.acnc.mm.util.CacheControlPhaseListener</phase-listener>
+</lifecycle>
+	
+	
+</faces-config>
